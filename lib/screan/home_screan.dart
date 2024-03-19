@@ -1,5 +1,7 @@
+
 import "package:flutter/material.dart";
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:taskut_application/information.dart';
 
 class HomeApp extends StatefulWidget {
   @override
@@ -11,6 +13,7 @@ class _HomeAppState extends State<HomeApp> {
 
   String text = " ";
   var box=Hive.box("names");
+  var boxInfo=Hive.box<Information>("info");
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +47,8 @@ class _HomeAppState extends State<HomeApp> {
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
             onPressed: () {
-              box.put(1, text);
+              box.put(1, "value");
+              boxInfo.put(2, Information(name: "mahdi",age: 22,addres: "Bandarabbas"));
             },
             child: Text(
               "دخیره اطلاعات",
@@ -56,9 +60,7 @@ class _HomeAppState extends State<HomeApp> {
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () {
               print(box.get(1));
-              setState(() {
-                text=box.get(1);
-              });
+              print(boxInfo.get(2)!.addres);
             },
             child: Text(
               "گرفتن اطلاعات",

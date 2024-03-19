@@ -1,6 +1,6 @@
 {
-    "name": "taskcut",
-    "short_name": "taskcut",
+    "name": "taskut_application",
+    "short_name": "taskut_application",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
