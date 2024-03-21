@@ -10,6 +10,7 @@ class Information{
     this.name,
     this.age,
     this.addres,
+    
   });
 
     @HiveField(0)
