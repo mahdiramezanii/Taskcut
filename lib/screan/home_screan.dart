@@ -1,6 +1,9 @@
+import 'dart:ffi';
 
+import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:msh_checkbox/msh_checkbox.dart';
 import 'package:taskut_application/information.dart';
 
 class HomeApp extends StatefulWidget {
@@ -12,63 +15,115 @@ class _HomeAppState extends State<HomeApp> {
   var textController = TextEditingController();
 
   String text = " ";
-  var box=Hive.box("names");
-  var boxInfo=Hive.box<Information>("info");
+  var box = Hive.box("names");
+  var boxInfo = Hive.box<Information>("info");
+  bool is_check = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextField(
-            controller: textController,
-          ),
-          SizedBox(
-            height: 40,
-          ),
-          Text(
-            "$text",
-            style: TextStyle(fontSize: 17),
-          ),
-          TextButton(
-            onPressed: () {
-              setState(
-                () {
-                  text = textController.text;
-                },
-              );
-            },
-            child: Text(
-              "ذخیره متن",
-              style: TextStyle(color: Colors.black, fontSize: 20),
+        backgroundColor: Color(0xffBFC3C8),
+        body: Center(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 22),
+            height: 140,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Color(0xffFAFAFA)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            MSHCheckbox(
+                              size: 30,
+                              value: is_check,
+                              colorConfig:
+                                  MSHColorConfig.fromCheckedUncheckedDisabled(
+                                checkedColor: Colors.blue,
+                              ),
+                              style: MSHCheckboxStyle.fillFade,
+                              onChanged: (selected) {
+                                setState(() {
+                                  is_check = !is_check;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Text("تمرین زبان انگلیسی"),
+                          ],
+                        ),
+                        Text(
+                          "تمرین زبان انگلیسی کتاب آموزشگاه",
+                          textAlign: TextAlign.start,
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              width: 83,
+                              height: 28,
+                              decoration: BoxDecoration(
+                                color: Color(0xff18DAA3),
+                                borderRadius: BorderRadius.circular(16.5),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    "10:00",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  Image(
+                                    image: AssetImage("assets/images/Time.png"),
+                                  )
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              width: 83,
+                              height: 28,
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(226, 246, 241, 1),
+                                borderRadius: BorderRadius.circular(16.5),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    "ویرایش",
+                                    style: TextStyle(
+                                      color: Color(0xff18DAA3),
+                                    ),
+                                  ),
+                                  Image(image: AssetImage("assets/images/Edit.png"),width: 20,)
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Image(image: AssetImage("assets/images/t1.png"))
+              ],
             ),
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-            onPressed: () {
-              box.put(1, "value");
-              boxInfo.put(2, Information(name: "mahdi",age: 22,addres: "Bandarabbas"));
-            },
-            child: Text(
-              "دخیره اطلاعات",
-              style: TextStyle(color: Colors.black, fontSize: 20),
-            ),
-          ),
-
-                    ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            onPressed: () {
-              print(box.get(1));
-              print(boxInfo.get(2)!.addres);
-            },
-            child: Text(
-              "گرفتن اطلاعات",
-              style: TextStyle(color: Colors.black, fontSize: 20),
-            ),
-          ),
-        ],
-      ),
-    );
+        ));
   }
 }
