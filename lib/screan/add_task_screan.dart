@@ -67,7 +67,7 @@ class _AddTaskScreanState extends State<AddTaskScrean> {
             child: TextField(
               controller: subTextController,
               maxLines: 2,
-              focusNode: negahban1,
+              focusNode: negahban2,
               decoration: InputDecoration(
                 hintText: "توضیحات تسک را وارد کنید",
                 label: Text("توضیحات تسک"),

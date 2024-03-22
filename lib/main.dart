@@ -8,7 +8,6 @@ import 'package:taskut_application/task.dart';
 
 void main() async {
 
-
   await Hive.initFlutter();
   await Hive.openBox("names");
   Hive.registerAdapter(InformationAdapter());
