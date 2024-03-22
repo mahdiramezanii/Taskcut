@@ -7,6 +7,8 @@ import 'package:taskut_application/task.dart';
 
 
 void main() async {
+
+
   await Hive.initFlutter();
   await Hive.openBox("names");
   Hive.registerAdapter(InformationAdapter());
@@ -14,6 +16,8 @@ void main() async {
   Hive.registerAdapter(TaskAdapter());
   await Hive.openBox<Task>("task");
   runApp(Application());
+
+
 }
 
 class Application extends StatelessWidget {
@@ -21,7 +25,7 @@ class Application extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AddTaskScrean(),
+      home: HomeApp(),
     );
   }
 }
