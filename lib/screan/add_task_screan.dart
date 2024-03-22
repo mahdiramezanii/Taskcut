@@ -105,7 +105,7 @@ class _AddTaskScreanState extends State<AddTaskScrean> {
                 Task(title: task.title, subTitle: task.subTitle),
               );
 
-              print(tsakBox.values.last.title);
+              Navigator.pop(context);
             },
             child: Text(
               "ذخیره تسک",
