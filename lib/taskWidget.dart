@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:msh_checkbox/msh_checkbox.dart';
+import 'package:taskut_application/edit_task_screan.dart';
 import 'package:taskut_application/task.dart';
 
 class TaskWidget extends StatefulWidget {
@@ -109,10 +110,21 @@ class _TaskWidgetState extends State<TaskWidget> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(
-                                "ویرایش",
-                                style: TextStyle(
-                                  color: Color(0xff18DAA3),
+                              InkWell(
+                                onTap: (){
+
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context){
+
+                                      return EditTaskScrean(task: widget.task,);
+                                    })
+                                  );
+                                },
+                                child: Text(
+                                  "ویرایش",
+                                  style: TextStyle(
+                                    color: Color(0xff18DAA3),
+                                  ),
                                 ),
                               ),
                               Image(
