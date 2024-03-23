@@ -2,6 +2,7 @@ import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:hive_flutter/hive_flutter.dart";
 import "package:taskut_application/task.dart";
+import "package:time_pickerr/time_pickerr.dart";
 
 class AddTaskScrean extends StatefulWidget {
   @override
@@ -88,6 +89,36 @@ class _AddTaskScreanState extends State<AddTaskScrean> {
           ),
           SizedBox(
             height: 20,
+          ),
+
+          CustomHourPicker(
+            elevation: 3,
+
+            onPositivePressed: (context,time){
+
+            },
+            onNegativePressed: (context){
+
+            },
+            positiveButtonStyle: TextStyle(
+              color: Colors.blue,
+              fontSize: 20
+            ),
+            positiveButtonText: "انتخاب تاریخ",
+
+             negativeButtonStyle: TextStyle(
+              color: Colors.red,
+              fontSize: 20
+             ),
+
+             negativeButtonText: "لغو",
+
+             initDate:DateTime.now(),
+             title: "ساعت را وارد کنید",
+             titleStyle: TextStyle(
+              color: Colors.green,
+             fontSize: 24
+             ),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
