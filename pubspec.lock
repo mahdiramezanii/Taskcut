@@ -283,6 +283,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.2"
+  infinite_listview:
+    dependency: transitive
+    description:
+      name: infinite_listview
+      sha256: f6062c1720eb59be553dfa6b89813d3e8dd2f054538445aaa5edaddfa5195ce6
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.0"
   io:
     dependency: transitive
     description:
@@ -379,6 +387,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.1"
+  numberpicker:
+    dependency: transitive
+    description:
+      name: numberpicker
+      sha256: "4c129154944b0f6b133e693f8749c3f8bfb67c4d07ef9dcab48b595c22d1f156"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.2"
   package_config:
     dependency: transitive
     description:
@@ -576,6 +592,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.6.1"
+  time_pickerr:
+    dependency: "direct main"
+    description:
+      name: time_pickerr
+      sha256: fa32d5818df396790d19afaadd67f38432bcdef63cd99500372ebc387787169b
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.6"
   timing:
     dependency: transitive
     description:
