@@ -16,7 +16,6 @@ void main() async {
   await Hive.openBox<Task>("task");
   runApp(Application());
 
-
 }
 
 class Application extends StatelessWidget {
