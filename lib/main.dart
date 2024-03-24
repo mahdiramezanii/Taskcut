@@ -8,6 +8,8 @@ import 'package:taskut_application/task.dart';
 import 'package:taskut_application/task_type.dart';
 
 void main() async {
+
+
   await Hive.initFlutter();
   await Hive.openBox("names");
   Hive.registerAdapter(InformationAdapter());
@@ -17,6 +19,8 @@ void main() async {
   Hive.registerAdapter(tasktypeenumAdapter());
   await Hive.openBox<Task>("task");
   runApp(Application());
+  
+
 }
 
 class Application extends StatelessWidget {

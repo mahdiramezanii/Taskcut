@@ -33,6 +33,7 @@ class _HomeAppState extends State<HomeApp> {
       body: ValueListenableBuilder(
         valueListenable: boxTask.listenable(),
         builder: (context, value, child) {
+          
           return NotificationListener<UserScrollNotification>(
             onNotification: (notif) {
               if (notif.direction == ScrollDirection.reverse) {
@@ -44,7 +45,6 @@ class _HomeAppState extends State<HomeApp> {
                   show_tab = true;
                 });
               }
-
               return true;
             },
             child: ListView.builder(
