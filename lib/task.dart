@@ -8,6 +8,7 @@ class Task extends HiveObject {
     required this.title,
     required this.subTitle,
     this.is_done = false,
+    required  this.time,
   });
   @HiveField(0)
   String title;
@@ -15,4 +16,7 @@ class Task extends HiveObject {
   String subTitle;
   @HiveField(2)
   bool is_done;
+
+  @HiveField(3)
+  DateTime time;
 }

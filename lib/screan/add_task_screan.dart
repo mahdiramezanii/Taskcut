@@ -13,6 +13,7 @@ class _AddTaskScreanState extends State<AddTaskScrean> {
   var tsakBox = Hive.box<Task>("task");
   FocusNode negahban1 = FocusNode();
   FocusNode negahban2 = FocusNode();
+  DateTime? _time;
 
   TextEditingController textController = TextEditingController();
   TextEditingController subTextController = TextEditingController();
@@ -100,6 +101,7 @@ class _AddTaskScreanState extends State<AddTaskScrean> {
         
                 print(time.hour);
                 print(time);
+                _time=time;
         
               },
               onNegativePressed: (context){
@@ -136,9 +138,9 @@ class _AddTaskScreanState extends State<AddTaskScrean> {
               onPressed: () {
                 var task = Task(
                     title: textController.text.toString(),
-                    subTitle: subTextController.text);
+                    subTitle: subTextController.text,time: _time!);
                 tsakBox.add(
-                  Task(title: task.title, subTitle: task.subTitle),
+                  Task(title: task.title, subTitle: task.subTitle,time:task.time),
                 );
         
                 Navigator.pop(context);

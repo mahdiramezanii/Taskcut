@@ -50,16 +50,16 @@ class _TaskWidgetState extends State<TaskWidget> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Checkbox(shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2),
-                          side: BorderSide(color: Colors.blue)
-                        ) , value: is_check, onChanged: (on_change){
-
-                         setState(() {
-                            is_check=on_change!;
-                         });
-                          
-                        }),
+                        Checkbox(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(2),
+                                side: BorderSide(color: Colors.blue)),
+                            value: is_check,
+                            onChanged: (on_change) {
+                              setState(() {
+                                is_check = on_change!;
+                              });
+                            }),
                         SizedBox(
                           width: 15,
                         ),
@@ -88,7 +88,7 @@ class _TaskWidgetState extends State<TaskWidget> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                "10:00",
+                                "${widget.task.time.hour}:${_getTime(widget.task.time)}",
                                 style: TextStyle(color: Colors.white),
                               ),
                               Image(
@@ -111,13 +111,15 @@ class _TaskWidgetState extends State<TaskWidget> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               InkWell(
-                                onTap: (){
-
+                                onTap: () {
                                   Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (context){
-
-                                      return EditTaskScrean(task: widget.task,);
-                                    })
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return EditTaskScrean(
+                                          task: widget.task,
+                                        );
+                                      },
+                                    ),
                                   );
                                 },
                                 child: Text(
@@ -145,5 +147,14 @@ class _TaskWidgetState extends State<TaskWidget> {
         ),
       ),
     );
+  }
+
+  String _getTime(DateTime time) {
+    var min = time.minute;
+
+    if (min < 10) {
+      return "${0}${min}";
+    }
+    return "$min";
   }
 }
