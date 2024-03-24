@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:taskut_application/task_type.dart';
 
 part 'task.g.dart';
 
@@ -8,7 +9,8 @@ class Task extends HiveObject {
     required this.title,
     required this.subTitle,
     this.is_done = false,
-    required  this.time,
+    required this.time,
+    required this.type,
   });
   @HiveField(0)
   String title;
@@ -19,4 +21,7 @@ class Task extends HiveObject {
 
   @HiveField(3)
   DateTime time;
+
+  @HiveField(4)
+  TaskType type;
 }

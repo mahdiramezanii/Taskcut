@@ -19,6 +19,7 @@ class _TaskWidgetState extends State<TaskWidget> {
   void initState() {
     is_check = widget.task.is_done;
     super.initState();
+    print(widget.task.type.title);
   }
 
   @override

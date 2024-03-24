@@ -156,14 +156,18 @@ class _AddTaskScreanState extends State<AddTaskScrean> {
               ),
               onPressed: () {
                 var task = Task(
-                    title: textController.text.toString(),
-                    subTitle: subTextController.text,
-                    time: _time!);
+                  title: textController.text.toString(),
+                  subTitle: subTextController.text,
+                  time: _time!,
+                  type: taskTypeList[selected_index],
+                );
                 tsakBox.add(
                   Task(
-                      title: task.title,
-                      subTitle: task.subTitle,
-                      time: task.time),
+                    title: task.title,
+                    subTitle: task.subTitle,
+                    time: task.time,
+                    type: task.type,
+                  ),
                 );
 
                 Navigator.pop(context);

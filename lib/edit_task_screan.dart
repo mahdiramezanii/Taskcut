@@ -2,6 +2,7 @@ import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:hive_flutter/hive_flutter.dart";
 import "package:taskut_application/task.dart";
+import "package:taskut_application/utility.dart";
 import "package:time_pickerr/time_pickerr.dart";
 
 class EditTaskScrean extends StatefulWidget {
@@ -21,6 +22,9 @@ class _EditTaskScreanState extends State<EditTaskScrean> {
   TextEditingController? textController;
   TextEditingController? subTextController;
 
+  var taskTypeList = task_type_list();
+  int selected_index = 0;
+
   @override
   void initState() {
     negahban1.addListener(() {
@@ -33,6 +37,10 @@ class _EditTaskScreanState extends State<EditTaskScrean> {
     textController = TextEditingController(text: widget.task!.title);
     subTextController = TextEditingController(text: widget.task!.subTitle);
 
+    selected_index=taskTypeList.indexWhere((element) {
+      return element.task_type_enum == widget.task.type.task_type_enum;
+    });
+
     super.initState();
   }
 
@@ -43,7 +51,7 @@ class _EditTaskScreanState extends State<EditTaskScrean> {
         child: Column(
           children: [
             SizedBox(
-              height: 200,
+              height: 30,
             ),
             Directionality(
               textDirection: TextDirection.rtl,
@@ -103,7 +111,7 @@ class _EditTaskScreanState extends State<EditTaskScrean> {
               date: widget.task.time,
               elevation: 3,
               onPositivePressed: (context, time) {
-                _time=time;
+                _time = time;
                 print(time.hour);
                 print(time);
               },
@@ -115,6 +123,40 @@ class _EditTaskScreanState extends State<EditTaskScrean> {
               initDate: DateTime.now(),
               title: "ساعت را وارد کنید",
               titleStyle: TextStyle(color: Colors.green, fontSize: 24),
+            ),
+            SizedBox(
+                height: 200,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: taskTypeList.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            selected_index = index;
+                          });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          width: 150,
+                          height: 200,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 116, 199, 119),
+                            border: Border.all(
+                                width: 4,
+                                color: selected_index == index
+                                    ? Colors.blue
+                                    : Colors.grey),
+                          ),
+                          child: Image(
+                            image:
+                                AssetImage(taskTypeList.elementAt(index).image),
+                          ),
+                        ),
+                      );
+                    })),
+            SizedBox(
+              height: 20,
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -129,7 +171,8 @@ class _EditTaskScreanState extends State<EditTaskScrean> {
                 var subtitle = subTextController!.text;
                 widget.task.title = title;
                 widget.task.subTitle = subtitle;
-                widget.task.time=_time!;
+                widget.task.time = _time!;
+                widget.task.type=taskTypeList[selected_index];
                 widget.task.save();
 
                 Navigator.pop(context);
