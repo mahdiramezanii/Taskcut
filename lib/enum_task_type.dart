@@ -1,5 +1,5 @@
 enum task_type_enum {
-  meeting,
+  meditation,
   frends,
   workout,
   work_meeting,

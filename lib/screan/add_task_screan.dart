@@ -2,6 +2,7 @@ import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:hive_flutter/hive_flutter.dart";
 import "package:taskut_application/task.dart";
+import "package:taskut_application/utility.dart";
 import "package:time_pickerr/time_pickerr.dart";
 
 class AddTaskScrean extends StatefulWidget {
@@ -14,6 +15,8 @@ class _AddTaskScreanState extends State<AddTaskScrean> {
   FocusNode negahban1 = FocusNode();
   FocusNode negahban2 = FocusNode();
   DateTime? _time;
+  var taskTypeList = task_type_list();
+  int selected_index = 0;
 
   TextEditingController textController = TextEditingController();
   TextEditingController subTextController = TextEditingController();
@@ -37,7 +40,7 @@ class _AddTaskScreanState extends State<AddTaskScrean> {
         child: Column(
           children: [
             SizedBox(
-              height: 200,
+              height: 10,
             ),
             Directionality(
               textDirection: TextDirection.rtl,
@@ -93,39 +96,55 @@ class _AddTaskScreanState extends State<AddTaskScrean> {
             SizedBox(
               height: 20,
             ),
-        
             CustomHourPicker(
               elevation: 3,
-        
-              onPositivePressed: (context,time){
-        
+              onPositivePressed: (context, time) {
                 print(time.hour);
                 print(time);
-                _time=time;
-        
+                _time = time;
               },
-              onNegativePressed: (context){
-        
-              },
-              positiveButtonStyle: TextStyle(
-                color: Colors.blue,
-                fontSize: 20
-              ),
+              onNegativePressed: (context) {},
+              positiveButtonStyle: TextStyle(color: Colors.blue, fontSize: 20),
               positiveButtonText: "انتخاب تاریخ",
-        
-               negativeButtonStyle: TextStyle(
-                color: Colors.red,
-                fontSize: 20
-               ),
-        
-               negativeButtonText: "لغو",
-        
-               initDate:DateTime.now(),
-               title: "ساعت را وارد کنید",
-               titleStyle: TextStyle(
-                color: Colors.green,
-               fontSize: 24
-               ),
+              negativeButtonStyle: TextStyle(color: Colors.red, fontSize: 20),
+              negativeButtonText: "لغو",
+              initDate: DateTime.now(),
+              title: "ساعت را وارد کنید",
+              titleStyle: TextStyle(color: Colors.green, fontSize: 24),
+            ),
+            SizedBox(
+                height: 200,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: taskTypeList.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            selected_index = index;
+                          });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          width: 150,
+                          height: 200,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 116, 199, 119),
+                            border: Border.all(
+                                width: 4,
+                                color: selected_index == index
+                                    ? Colors.blue
+                                    : Colors.grey),
+                          ),
+                          child: Image(
+                            image:
+                                AssetImage(taskTypeList.elementAt(index).image),
+                          ),
+                        ),
+                      );
+                    })),
+            SizedBox(
+              height: 20,
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -138,11 +157,15 @@ class _AddTaskScreanState extends State<AddTaskScrean> {
               onPressed: () {
                 var task = Task(
                     title: textController.text.toString(),
-                    subTitle: subTextController.text,time: _time!);
+                    subTitle: subTextController.text,
+                    time: _time!);
                 tsakBox.add(
-                  Task(title: task.title, subTitle: task.subTitle,time:task.time),
+                  Task(
+                      title: task.title,
+                      subTitle: task.subTitle,
+                      time: task.time),
                 );
-        
+
                 Navigator.pop(context);
               },
               child: Text(
