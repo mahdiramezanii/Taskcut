@@ -5,7 +5,14 @@ import "package:taskut_application/constant/colors.dart";
 import "package:taskut_application/widgets/task_widget.dart";
 import "package:timeline_tile/timeline_tile.dart";
 
-class HomeScrean extends StatelessWidget {
+class HomeScrean extends StatefulWidget {
+  @override
+  State<HomeScrean> createState() => _HomeScreanState();
+}
+
+class _HomeScreanState extends State<HomeScrean> {
+  var _selectdIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,52 +76,45 @@ class HomeScrean extends StatelessWidget {
         ),
         SizedBox(
           height: 100,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                TimelineTile(
-                  axis: TimelineAxis.horizontal,
-                  alignment: TimelineAlign.center,
-                  beforeLineStyle:
-                      LineStyle(color: MyColors.myGreen, thickness: 2),
-                  indicatorStyle: IndicatorStyle(color: MyColors.myGreen),
-                  endChild: Text(
-                    "10-12",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectdIndex = index;
+                    });
+                  },
+                  child: TimelineTile(
+                    axis: TimelineAxis.horizontal,
+                    hasIndicator: _selectdIndex == index ? true : false,
+                    alignment: TimelineAlign.center,
+                    beforeLineStyle:
+                        LineStyle(color: MyColors.myGreen, thickness: 2),
+                    indicatorStyle: IndicatorStyle(color: MyColors.myGreen),
+                    endChild: Column(
+                      children: [
+                        _selectdIndex != index
+                            ? SizedBox(
+                                height: 10,
+                              )
+                            : SizedBox(),
+                        Text(
+                          "10-12",
+                          style: TextStyle(
+                            color: _selectdIndex == index
+                                ? Colors.black
+                                : Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                ),
-                TimelineTile(
-                  axis: TimelineAxis.horizontal,
-                  beforeLineStyle:
-                      LineStyle(color: MyColors.myGreen, thickness: 2),
-                  alignment: TimelineAlign.center,
-                ),
-                TimelineTile(
-                  axis: TimelineAxis.horizontal,
-                  beforeLineStyle:
-                      LineStyle(color: MyColors.myGreen, thickness: 2),
-                  alignment: TimelineAlign.center,
-                ),
-                TimelineTile(
-                  axis: TimelineAxis.horizontal,
-                  beforeLineStyle:
-                      LineStyle(color: MyColors.myGreen, thickness: 2),
-                  alignment: TimelineAlign.center,
-                ),
-                TimelineTile(
-                  axis: TimelineAxis.horizontal,
-                  beforeLineStyle:
-                      LineStyle(color: MyColors.myGreen, thickness: 2),
-                  alignment: TimelineAlign.center,
-                )
-              ],
-            ),
-          ),
+                );
+              }),
         )
       ],
     );

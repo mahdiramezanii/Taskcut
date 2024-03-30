@@ -11,7 +11,7 @@ class TaskWidgets extends StatelessWidget {
           color: const Color.fromARGB(255, 237, 235, 235),
           borderRadius: BorderRadius.circular(12)),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -33,6 +33,7 @@ class TaskWidgets extends StatelessWidget {
               Image(image: AssetImage("assets/images/t1.png"))
             ],
           ),
+          
           Row(
             children: [
               Container(
