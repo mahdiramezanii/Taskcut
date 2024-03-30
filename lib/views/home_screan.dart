@@ -2,6 +2,7 @@ import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter/widgets.dart";
 import "package:taskut_application/constant/colors.dart";
+import "package:timeline_tile/timeline_tile.dart";
 
 class HomeScrean extends StatelessWidget {
   @override
@@ -19,7 +20,21 @@ class HomeScrean extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            CategoryRow()
+            CategoryRow(),
+            SizedBox(
+              height: 100,
+              width: double.infinity,
+              child: TimelineTile(
+                axis: TimelineAxis.horizontal,
+                alignment: TimelineAlign.center,
+                hasIndicator: true,
+                endChild: Row(
+                  children: [ 
+                    Text("data"),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
