@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:taskut_application/views/home_screan.dart';
 
 void main() async {
   runApp(Application());
@@ -10,7 +10,7 @@ class Application extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: Center(child: Text("lkhjfdf"),),),
+      home: HomeScrean(),
     );
   }
 }
