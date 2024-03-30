@@ -55,7 +55,7 @@ class _AddTaskScreanState extends State<AddTaskScrean> {
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide:
-                            BorderSide(color: MyColors.myGreen, width: 2),
+                            BorderSide(color: MyColors.myGreen, width: 3),
                       ),
                     ),
                   ),
@@ -77,7 +77,7 @@ class _AddTaskScreanState extends State<AddTaskScrean> {
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide:
-                            BorderSide(color: MyColors.myGreen, width: 2),
+                            BorderSide(color: MyColors.myGreen, width: 3),
                       ),
                     ),
                   ),
