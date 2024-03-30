@@ -21,6 +21,7 @@ dependencies:
   hive_flutter: ^1.1.0
   msh_checkbox: ^2.0.1
   time_pickerr: ^1.0.6
+  timeline_tile: ^2.0.0
 
 dev_dependencies:
   flutter_test:
