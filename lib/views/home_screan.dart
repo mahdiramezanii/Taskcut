@@ -6,41 +6,63 @@ class HomeScrean extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+        
+        resizeToAvoidBottomInset: true,
         body: SafeArea(
             child: Column(
-      children: [
-        getHeaderProfile(),
-        SizedBox(
-          height: 30,
-        ),
-        SerachBox()
-      ],
-    )));
+          children: [
+            getHeaderProfile(),
+            SizedBox(
+              height: 30,
+            ),
+            SerachBox(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text("مشاهده بیشتر"),
+                  Spacer(),
+                  Text("دسته بندی"),
+                ],
+              ),
+            ),
+          ],
+        )));
   }
 
   Widget SerachBox() {
-    return Container(
-      width: 380,
-      height: 50,
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: TextField(
-          decoration: InputDecoration(
-              hintText: "جستجوی تسکات",
-              prefixIcon: Transform.scale(
-                scale: 0.5,
-                child: Image.asset(
-                  "assets/images/search.png",
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Card(
+        color: Colors.white,
+        elevation: 0.5,
+        
+        child: Container(
+          width: 380,
+          height: 50,
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: "جستجوی تسکات",
+                prefixIcon: Transform.scale(
+                  scale: 0.5,
+                  child: Image.asset(
+                    "assets/images/search.png",
+                  ),
+                ),
+                suffixIcon: Transform.scale(
+                  scale: 0.5,
+                  child: Image.asset("assets/images/Filter.png"),
+                ),
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide.none
                 ),
               ),
-              suffixIcon: Transform.scale(
-                scale: 0.5,
-                child: Image.asset("assets/images/Filter.png"),
-              ),
-              enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
-              focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: MyColors.myGreen))),
+            ),
+          ),
         ),
       ),
     );
