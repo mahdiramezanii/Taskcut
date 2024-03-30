@@ -1,3 +1,4 @@
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter/widgets.dart";
 import "package:taskut_application/constant/colors.dart";
@@ -6,29 +7,76 @@ class HomeScrean extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        
-        resizeToAvoidBottomInset: true,
-        body: SafeArea(
-            child: Column(
+      resizeToAvoidBottomInset: true,
+      body: SafeArea(
+        child: Column(
           children: [
             getHeaderProfile(),
             SizedBox(
               height: 30,
             ),
             SerachBox(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text("مشاهده بیشتر"),
-                  Spacer(),
-                  Text("دسته بندی"),
-                ],
-              ),
+            SizedBox(
+              height: 20,
             ),
+            CategoryRow()
           ],
-        )));
+        ),
+      ),
+    );
+  }
+
+  Widget CategoryRow() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                "مشاهده بیشتر",
+                style: TextStyle(color: MyColors.myGreen, fontSize: 17),
+              ),
+              Spacer(),
+              Text(
+                "دسته بندی",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 200,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 4,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        Image(image: AssetImage("assets/images/card1.png")),
+                        Positioned(
+                          bottom: 12,
+                          child: Container(
+                            width: 100,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Center(child: Text("آموزشی")),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                }),
+          )
+        ],
+      ),
+    );
   }
 
   Widget SerachBox() {
@@ -37,7 +85,6 @@ class HomeScrean extends StatelessWidget {
       child: Card(
         color: Colors.white,
         elevation: 0.5,
-        
         child: Container(
           width: 380,
           height: 50,
@@ -57,9 +104,8 @@ class HomeScrean extends StatelessWidget {
                   child: Image.asset("assets/images/Filter.png"),
                 ),
                 enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide.none
-                ),
+                focusedBorder:
+                    UnderlineInputBorder(borderSide: BorderSide.none),
               ),
             ),
           ),
