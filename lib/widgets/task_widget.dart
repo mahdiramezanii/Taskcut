@@ -26,6 +26,7 @@ class _TaskWidgetsState extends State<TaskWidgets> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Checkbox(
+                    activeColor: MyColors.myGreen,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(3),
                     ),
