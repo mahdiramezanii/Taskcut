@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:hive_flutter/hive_flutter.dart";
 import "package:taskut_application/constant/colors.dart";
 import "package:taskut_application/models/task_model.dart";
+import "package:taskut_application/views/add_task.dart";
 import "package:taskut_application/widgets/task_widget.dart";
 import "package:timeline_tile/timeline_tile.dart";
 
@@ -10,10 +11,10 @@ class HomeScrean extends StatefulWidget {
   State<HomeScrean> createState() => _HomeScreanState();
 }
 
-class _HomeScreanState extends State<HomeScrean>  {
+class _HomeScreanState extends State<HomeScrean> {
   var _selectdIndex = 0;
 
-  var test=Hive.box<Task>("Task");
+  var taskbox = Hive.box<Task>("Task");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,14 +41,34 @@ class _HomeScreanState extends State<HomeScrean>  {
               ),
               SizedBox(
                 height: 300,
-                child: ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return TaskWidgets();
-                    }),
+                child: ValueListenableBuilder(
+                  valueListenable: taskbox.listenable(),
+                  builder: (context, value, child) {
+                    return ListView.builder(
+                      itemCount: taskbox.values.length,
+                      itemBuilder: (context, index) {
+                        return TaskWidgets(
+                          task: taskbox.values.toList()[index],
+                        );
+                      },
+                    );
+                  },
+                ),
               )
             ],
           ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return AddTaskScrean();
+          }));
+        },
+        backgroundColor: MyColors.myGreen,
+        child: Icon(
+          Icons.add,
+          color: MyColors.SecoundGreen,
         ),
       ),
     );
@@ -71,9 +92,10 @@ class _HomeScreanState extends State<HomeScrean>  {
               Text(
                 "تسک های امروز",
                 style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w900),
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                ),
               ),
             ],
           ),
