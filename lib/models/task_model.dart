@@ -12,6 +12,7 @@ class Task {
     this.is_done = false,
     required this.type,
   });
+
   @HiveField(0)
   String title;
   @HiveField(1)
@@ -20,7 +21,6 @@ class Task {
   bool is_done = false;
   @HiveField(3)
   DateTime time;
-
   @HiveField(4)
   TaskType type;
 }
