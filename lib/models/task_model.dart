@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:taskut_application/models/task_type.dart';
 
 part 'task_model.g.dart';

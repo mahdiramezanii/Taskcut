@@ -1,9 +1,14 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter/widgets.dart";
+import "package:hive_flutter/hive_flutter.dart";
+import "package:taskut_application/api/local/task_type_list.dart";
 import "package:taskut_application/constant/colors.dart";
+import "package:taskut_application/models/task_model.dart";
 import "package:taskut_application/widgets/task_widget.dart";
 import "package:timeline_tile/timeline_tile.dart";
+import "package:taskut_application/models/task_model.dart";
+
 
 class HomeScrean extends StatefulWidget {
   @override
@@ -12,6 +17,8 @@ class HomeScrean extends StatefulWidget {
 
 class _HomeScreanState extends State<HomeScrean> {
   var _selectdIndex = 0;
+  var task = Hive.box<Task>("Task");
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +44,14 @@ class _HomeScreanState extends State<HomeScrean> {
               SizedBox(
                 height: 10,
               ),
-              TaskWidgets(),
               SizedBox(
-                height: 10,
-              ),
-              TaskWidgets(),
+                height: 300,
+                child: ListView.builder(
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return TaskWidgets();
+                    }),
+              )
             ],
           ),
         ),
