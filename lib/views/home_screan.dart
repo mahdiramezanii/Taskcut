@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import "package:flutter/rendering.dart";
+import "package:flutter/widgets.dart";
 import "package:hive_flutter/hive_flutter.dart";
 import "package:taskut_application/constant/colors.dart";
 import "package:taskut_application/models/task_model.dart";
@@ -13,6 +15,7 @@ class HomeScrean extends StatefulWidget {
 
 class _HomeScreanState extends State<HomeScrean> {
   var _selectdIndex = 0;
+  bool show_fab = true;
 
   var taskbox = Hive.box<Task>("Task");
   @override
@@ -44,13 +47,38 @@ class _HomeScreanState extends State<HomeScrean> {
                 child: ValueListenableBuilder(
                   valueListenable: taskbox.listenable(),
                   builder: (context, value, child) {
-                    return ListView.builder(
-                      itemCount: taskbox.values.length,
-                      itemBuilder: (context, index) {
-                        return TaskWidgets(
-                          task: taskbox.values.toList()[index],
-                        );
+                    return NotificationListener<UserScrollNotification>(
+                      onNotification: (notification) {
+                        if (notification.direction == ScrollDirection.forward) {
+                          setState(() {
+                            show_fab = true;
+                          });
+                        }
+                        if (notification.direction == ScrollDirection.reverse) {
+                          setState(() {
+                            show_fab = false;
+                          });
+                        }
+                        return true;
                       },
+                      child: ListView.builder(
+                        itemCount: taskbox.values.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                              onHorizontalDragStart: (details) {
+                                print("test");
+                              },
+                              child: Dismissible(
+                                key: UniqueKey(),
+                                direction: DismissDirection.horizontal,
+                               
+                               
+                                child: TaskWidgets(
+                                  task: taskbox.values.toList()[index],
+                                ),
+                              ));
+                        },
+                      ),
                     );
                   },
                 ),
@@ -59,16 +87,19 @@ class _HomeScreanState extends State<HomeScrean> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return AddTaskScrean();
-          }));
-        },
-        backgroundColor: MyColors.myGreen,
-        child: Icon(
-          Icons.add,
-          color: MyColors.SecoundGreen,
+      floatingActionButton: Visibility(
+        visible: show_fab,
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return AddTaskScrean();
+            }));
+          },
+          backgroundColor: MyColors.myGreen,
+          child: Icon(
+            Icons.add,
+            color: MyColors.SecoundGreen,
+          ),
         ),
       ),
     );
