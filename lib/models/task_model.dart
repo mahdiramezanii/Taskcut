@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:taskut_application/models/task_type.dart';
 
 part 'task_model.g.dart';
 
@@ -9,6 +10,7 @@ class Task {
     required this.subtitle,
     required this.time,
     this.is_done = false,
+    required this.type,
   });
   @HiveField(0)
   String title;
@@ -18,4 +20,7 @@ class Task {
   bool is_done = false;
   @HiveField(3)
   DateTime time;
+
+  @HiveField(4)
+  TaskType type;
 }
