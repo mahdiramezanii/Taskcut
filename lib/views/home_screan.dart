@@ -1,14 +1,12 @@
-import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
+import "package:flutter/rendering.dart";
 import "package:flutter/widgets.dart";
 import "package:hive_flutter/hive_flutter.dart";
-import "package:taskut_application/api/local/task_type_list.dart";
 import "package:taskut_application/constant/colors.dart";
 import "package:taskut_application/models/task_model.dart";
+import "package:taskut_application/views/add_task.dart";
 import "package:taskut_application/widgets/task_widget.dart";
 import "package:timeline_tile/timeline_tile.dart";
-import "package:taskut_application/models/task_model.dart";
-
 
 class HomeScrean extends StatefulWidget {
   @override
@@ -17,9 +15,9 @@ class HomeScrean extends StatefulWidget {
 
 class _HomeScreanState extends State<HomeScrean> {
   var _selectdIndex = 0;
-  var task = Hive.box<Task>("Task");
+  bool show_fab = true;
 
-
+  var taskbox = Hive.box<Task>("Task");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,26 +38,74 @@ class _HomeScreanState extends State<HomeScrean> {
               SizedBox(
                 height: 20,
               ),
-              Task(),
+              TaskWidget(),
               SizedBox(
                 height: 10,
               ),
               SizedBox(
                 height: 300,
-                child: ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return TaskWidgets();
-                    }),
+                child: ValueListenableBuilder(
+                  valueListenable: taskbox.listenable(),
+                  builder: (context, value, child) {
+                    return NotificationListener<UserScrollNotification>(
+                      onNotification: (notification) {
+                        if (notification.direction == ScrollDirection.forward) {
+                          setState(() {
+                            show_fab = true;
+                          });
+                        }
+                        if (notification.direction == ScrollDirection.reverse) {
+                          setState(() {
+                            show_fab = false;
+                          });
+                        }
+                        return true;
+                      },
+                      child: ListView.builder(
+                        itemCount: taskbox.values.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                              onHorizontalDragStart: (details) {
+                                print("test");
+                              },
+                              child: Dismissible(
+                                key: UniqueKey(),
+                                direction: DismissDirection.horizontal,
+                               
+                               
+                                child: TaskWidgets(
+                                  task: taskbox.values.toList()[index],
+                                ),
+                              ));
+                        },
+                      ),
+                    );
+                  },
+                ),
               )
             ],
+          ),
+        ),
+      ),
+      floatingActionButton: Visibility(
+        visible: show_fab,
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return AddTaskScrean();
+            }));
+          },
+          backgroundColor: MyColors.myGreen,
+          child: Icon(
+            Icons.add,
+            color: MyColors.SecoundGreen,
           ),
         ),
       ),
     );
   }
 
-  Widget Task() {
+  Widget TaskWidget() {
     return Column(
       children: [
         Padding(
@@ -77,9 +123,10 @@ class _HomeScreanState extends State<HomeScrean> {
               Text(
                 "تسک های امروز",
                 style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w900),
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                ),
               ),
             ],
           ),
