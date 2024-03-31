@@ -1,43 +1,37 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'task_model.dart';
+part of 'task_type.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class TaskAdapter extends TypeAdapter<Task> {
+class TaskTypeAdapter extends TypeAdapter<TaskType> {
   @override
-  final int typeId = 0;
+  final int typeId = 2;
 
   @override
-  Task read(BinaryReader reader) {
+  TaskType read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Task(
+    return TaskType(
       title: fields[0] as String,
-      subtitle: fields[1] as String,
-      time: fields[3] as DateTime,
-      is_done: fields[2] as bool,
-      type: fields[4] as TaskType,
+      image: fields[1] as String,
+      type: fields[2] as Enum,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Task obj) {
+  void write(BinaryWriter writer, TaskType obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
-      ..write(obj.subtitle)
+      ..write(obj.image)
       ..writeByte(2)
-      ..write(obj.is_done)
-      ..writeByte(3)
-      ..write(obj.time)
-      ..writeByte(4)
       ..write(obj.type);
   }
 
@@ -47,7 +41,7 @@ class TaskAdapter extends TypeAdapter<Task> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TaskAdapter &&
+      other is TaskTypeAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
